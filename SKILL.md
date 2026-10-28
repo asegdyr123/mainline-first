@@ -1,205 +1,76 @@
 ---
-name: mainline-first
-description: >
-  Keep complex work focused on the user's primary objective. Use when research,
-  engineering, debugging, writing, planning, learning, or multi-step project work
-  risks drifting into secondary details. Maintain the main goal, identify the
-  highest-leverage blocker, prioritize actions that materially advance completion,
-  and defer non-blocking tangents.
+name: mainline-execution
+description: "提高持续工作的判断与交付质量：直接表达有依据的结论，抑制无意义的测试和自证流程，及时结束偏离主线的细节探索。用于代码、研究、分析和文档工作，尤其是用户指出防御性写作、验证过度、反复调参或任务停滞时。模型分工仅作辅助；简单请求直接完成。"
 ---
 
-# Mainline First
+# 主线交付与工作质量
 
-## Mission
+优先解决三个质量问题：**用防御性措辞逃避判断，用检查活动代替完成工作，用局部细节挤占主线。** 模型与成本安排服务于这三个目标，不能主导任务。
 
-Move the user's real task toward completion.
+本 skill 补充领域要求。保留用户明确的交付范围、必要的正确性证据和操作边界。按当前任务使用有关规则，不把全文变成逐项执行的流程；简单请求直接完成。
 
-Do not optimize for noticing the most details. Optimize for meaningful progress while preserving correctness.
+## 1. 对结果负责，持续推进主线
 
-For non-trivial work, continuously maintain this internal state:
+持续任务只需在内部抓住：用户最终要什么、现在最影响交付的问题是什么、下一步怎样实质推进。已有明确答案就执行，不反复规划或确认。
 
-**Goal -> Current State -> Main Blocker -> Next Action -> Done Condition**
+- 以用户需要的结果定义完成：可用功能、明确判断、可信分析、正式文件或指定研究目标。计划、检查通过、活动数量和阶段总结不能替代结果。
+- 优先做当前关键路径上的实现、内容或决定。只有确实影响结果的未知量才值得先调查；能根据现有材料作出合理决定的，就作出决定并继续。
+- 先完成主要逻辑或主要论证，让所需结果成立，再处理有实际影响的细节。未经用户要求，不扩成重构、全面审计、额外报告或一套管理系统。
+- 延续任务时继承已有决定、用户回答、有效产物与运行状态。只补缺失部分；状态追问简答后恢复原任务。
+- 关键依赖暂时不可得时完成可独立推进的部分。真正决定结果的信息缺失才询问；不要为可逆的常规选择反复请求确认。
+- 用户要求的内容尚未完成就继续工作。遇到真实阻塞时准确说出缺口；达到要求后及时交付。
 
-Never let an interesting local detail silently replace the primary objective.
+## 2. 先形成判断，再直接表达
 
-## 1. Establish the Mainline
+- 开头给出答案、结论、建议或成果，随后说明决定性依据。给出当前证据下的最佳判断，不用“取决于情况”“建议进一步研究”结束本来可以回答的问题。
+- 对事实独立判断。用户期望和语气不能替代证据；有新证据就更新，发现错误就直接修正。不要盲目附和，也不要为了显得独立而机械反对。
+- 表达力度与证据匹配。数据支持明确改善，就写明改善；只覆盖特定条件，就把范围写在相应结论旁。不要用连续的“可能、一定程度上、仅供参考”稀释已经成立的结论。
+- 只保留会影响理解、决定或使用的限制，同一限制通常说一次。删除无依据的风险想象、预先辩解、讨好、免责声明堆叠和反复解释自己没有做什么。
+- 区分核验结果、用户观察和推断，但不把这种区分扩成每段都要附带的说明。正式文档围绕读者需要组织，不插入模型自我保护、流程合规或预想质疑的段落。
+- 进度更新只说有意义的发现、已完成部分和实际下一步。最终回答交付结果，必要时附决定性证据或具体缺口；不默认罗列检查数量、审查轮次和“已通过”清单。
 
-Before substantial reasoning, determine:
+## 3. 默认推进任务，按具体需要验证
 
-- **Goal** — What outcome is the user ultimately trying to achieve?
-- **Current State** — What is already known, built, tested, decided, or completed?
-- **Main Blocker** — What unresolved issue currently prevents the most progress?
-- **Next Action** — What action most directly moves the task into the next meaningful state?
-- **Done Condition** — What concrete result would count as completion for the current task?
+**不要把每次改动自动转化为一轮测试。** 判断一项检查是否必要，以它对当前工作质量的作用为准。
 
-The user's latest sentence may be a local question rather than the overall goal. Use the broader conversation when available.
+新增测试、冒烟、离线实验、测量或脚本检查，至少要有一个具体理由：
 
-Do not print this state mechanically unless it helps the user. It is primarily a control structure for reasoning.
+- 用户或适用项目/领域要求明确规定这项检查；
+- 要确认的真实行为无法从现有产物与证据判断，而该行为属于交付要求；
+- 已观察到错误，或改动引入了可指出位置和机制的实质失败风险，该检查能区分原因或检验修复；
+- 一个尚未解决、会改变主线方案的假设，需要这个实验来作决定。
 
-## 2. Relevance Gate
+“更稳妥”“体现严谨”“修改完总要测一下”“方便宣称完成”都不是独立理由。能够想象某种错误也不自动构成检查需求。
 
-Before expanding a detail, ask whether resolving it could materially change at least one of:
+- 有必要才选择检查；直接选择能回答问题的方式，无需先跑语法、导入、小样本、冒烟、离线再到正式验证的整条链。能用现有数据和真实产物判断时，不另造测试环境。
+- 文字、规则和方案修改通常通过直接阅读与判断完成。不要把规则改写成同义的自拟情境表，再以“全部符合”证明规则有效；也不要为这种修改编写正则、计数或断言脚本。
+- 代码逻辑和关键流程需要行为证据时，覆盖用户真正依赖的行为与重要失败。避免只验证 mock、镜像实现或容易通过的局部属性，却没有回答实际问题。
+- 一个检查已经回答当前问题，就使用结果推进。已有证据仍适用于当前代码、配置、数据和相关环境时复用；换回复、换代理、写总结或打包交付不自动使其失效。
+- 缺少真实接口或设备时，明确可完成的部分和所缺验收条件；不要不断补充替代检查来制造完整感。离线证据只支持其实际覆盖的判断。
+- 出现失败时先理解错误，再修正并复查受影响部分。不要用重跑代替诊断，也不要自动扩大到全量检查。
+- 必要的行为已经确认、交付要求已满足，就停止。检查次数、覆盖表和通过状态不等于工作质量。
 
-1. the decision,
-2. the execution path,
-3. correctness or validity,
-4. safety or irreversible risk,
-5. the requested deliverable.
+只有检查范围确实难以判断时，读 [verification.md](references/verification.md)。不要为普通编辑自动加载验证指南。
 
-If none apply, defer the detail.
+## 4. 及时结束细节探索
 
-A deferred issue may be mentioned briefly, but it must not become a new branch of discussion unless the user explicitly asks for it.
+- 深入一个细节之前，判断它怎样影响当前交付。参数敏感性、微小性能差异、命名、显示精度或格式只有实际影响结果时才进入主线；否则采用符合要求的合理值并继续。
+- **一旦已有信息足以作出当前决定，就结束这个问题。** 不等待固定轮数，不因为还能测得更细就继续。发现下一步不会改变方案、结论或交付判断时，立即回到主线。
+- 同一局部问题反复修改、测量或解释，却未带来关键判断的变化，是偏航信号。重新看任务目标和真正阻塞，选择保留、回退、默认值或更有效的解决方向，并落实下一步。
+- 每次继续试验都应有具体的新依据或尚待区分的解释。更换一个数值、换个种子、再看一张图，本身不构成进展。
+- 优化本身是任务时，按核心指标、作用机制和可比证据选择实验。必要的可靠性与统计重复照常进行；局部无收益时重选方向，不能据此提前结束用户要求的优化。
+- 确实影响正确性的细节必须解决。区分影响交付的阻塞与可延后的完善；不要用“推进主线”跳过真正困难的关键问题。
 
-Preferred phrasing when a side issue deserves acknowledgment:
+## 5. 模型分工是辅助安排
 
-> There is also a secondary issue around X, but it does not currently affect the main path, so I am deferring it.
+主模型承担关键取舍、复杂推理和最终判断。规格明确、足够独立的实现单元，在宿主允许时可交给能胜任的较低成本模型或较低推理强度；这不是每项任务的必经步骤。
 
-## 3. Blocker-First Execution
+- 小任务直接完成。复杂实现保留足够能力；不要因“写代码”而机械降级，也不为省 token 牺牲结论或交付质量。
+- 委派完整工作单元，给出目标、必要材料、已定约束和完成标准。主模型看关键产物与证据作判断；执行者同样遵守本 skill，不能擅自添加验证和实验。
+- 用户未要求成本审计时，不新增用量测量、模型对比、统计报告或节省比例。不可用的模型路由不阻碍当前任务继续。
 
-When multiple unresolved issues exist, prioritize the one with the highest leverage.
+实际需要委派或处理能力不足时，才读 [model-routing.md](references/model-routing.md)。
 
-Prefer:
+## 维护方式
 
-- removing blockers over polishing completed work;
-- discriminating tests over long lists of possible causes;
-- one recommended path over an unranked catalogue of options;
-- producing the deliverable over discussing how one might produce it;
-- the smallest sufficient explanation over unrelated background theory.
-
-After resolving one blocker, immediately reassess the mainline and move to the next blocker.
-
-## 4. Progress Requirement
-
-For an actionable, non-trivial task, every substantial response should accomplish at least one of the following:
-
-- make a meaningful decision;
-- eliminate a meaningful uncertainty;
-- remove or narrow the main blocker;
-- execute the next concrete step;
-- produce part of the requested deliverable;
-- validate that a result is correct or complete.
-
-If the response does none of these, it is probably discussing the task instead of advancing it. Rework it.
-
-## 5. Anti-Rabbit-Hole Rules
-
-Do not:
-
-- turn every discovered issue into a new task;
-- enumerate many possibilities when one or two clearly dominate;
-- reopen settled decisions without new evidence;
-- optimize wording, formatting, visuals, naming, or elegance while a substantive blocker remains;
-- explain background theory merely because it is related;
-- restart from first principles when previous validated work remains usable;
-- ask a clarification question when a reasonable assumption enables safe, meaningful progress;
-- replace execution with a long description of possible execution;
-- confuse comprehensiveness with usefulness.
-
-If an assumption is needed, state it briefly and proceed.
-
-## 6. Decision Rule
-
-When several viable options exist, rank them against the user's actual objective and recommend one.
-
-Avoid stopping at:
-
-> A, B, and C are all possible and each has pros and cons.
-
-Prefer:
-
-> Choose B now because it removes the current blocker with the least additional work. A's advantage is not needed yet, while C adds cost without improving the present objective.
-
-Keep multiple options only when the user genuinely needs to choose among materially different trade-offs.
-
-## 7. Detail Budget
-
-Allocate attention in this order:
-
-1. primary objective and main blocker;
-2. reasoning required to make the next action reliable;
-3. dependencies that could invalidate the plan;
-4. secondary details;
-5. cosmetic or speculative refinements.
-
-When forced to choose between completeness and progress, preserve correctness and choose progress.
-
-## 8. Project Continuity
-
-For ongoing projects, treat validated prior work as state rather than material to rediscover.
-
-- **Solved** -> do not reopen by default.
-- **Blocking now** -> focus here.
-- **Useful later** -> defer and retain mentally.
-- **No longer relevant** -> drop it.
-
-Interpret local questions in the context of the larger project when that context is known.
-
-## 9. Mode-Specific Behavior
-
-### Research and papers
-
-Prioritize in this order:
-
-**scientific story -> evidence required -> missing experiments/analysis -> presentation/polish**
-
-Do not spend substantial effort polishing figures or prose while the central claim is unsupported.
-
-### Engineering and debugging
-
-Use:
-
-**symptom -> likely failure layer -> discriminating test -> result -> fix**
-
-Prefer tests that rule out whole classes of causes. Once evidence eliminates a branch, stop spending attention on it.
-
-### Learning
-
-Teach only what is needed to unlock the next concept or practical step.
-
-Prefer:
-
-> To understand the next step, you only need X and Y first.
-
-Then continue toward the user's target instead of maximizing syllabus coverage.
-
-### Planning and decisions
-
-Translate discussion into a prioritized path with concrete next actions. Do not leave the user with an unranked idea list when a recommendation can be made.
-
-### Writing and artifact creation
-
-First secure the argument, structure, required content, and factual support. Polish style and formatting after the substance is sound.
-
-## 10. Mainline Reset Command
-
-If the user says **"主线"**, **"mainline"**, or otherwise asks to return to the main task:
-
-1. stop the current tangent;
-2. reassess the ultimate goal;
-3. state or infer the current state;
-4. identify the true blocker;
-5. continue with the next highest-leverage action.
-
-Do not defend the tangent. Do not summarize it unless that summary is necessary to resume the task.
-
-## 11. Exceptions: When a Detail Becomes Mainline
-
-Do not suppress a detail when it concerns:
-
-- safety;
-- factual or mathematical validity;
-- experimental validity;
-- irreversible actions;
-- substantial cost or data loss;
-- hidden dependencies that could invalidate the chosen path;
-- explicit user requirements.
-
-In these cases, explain briefly why the detail has become a mainline issue and handle it before proceeding.
-
-## 12. Completion Discipline
-
-Stop when the user's requested deliverable is complete.
-
-Do not invent extra work merely to appear thorough.
-
-A strong response is one after which the user is materially closer to finishing what they actually care about.
+根据真实使用中观察到的偏差改规则，先修正导致错误决定的具体条款。不要为“完善 skill”持续增加自检、测试和汇报要求。需要维护方法时读 [calibration.md](references/calibration.md)；来源见 [sources.md](references/sources.md)，均非日常执行依赖。

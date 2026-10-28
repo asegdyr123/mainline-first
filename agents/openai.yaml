@@ -1,0 +1,6 @@
+interface:
+  display_name: "主线交付与工作质量"
+  short_description: "直接给出有依据的判断，抑制无效验证与细节偏航，完成用户所需结果"
+  default_prompt: "使用 $mainline-execution 完成当前任务，重点纠正防御性表达、无意义验证和偏离主线；模型分工按需安排。"
+policy:
+  allow_implicit_invocation: true
